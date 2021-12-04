@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<house>
+	<room name="Entrada">
+		<norte>Recibidor</norte>
+		<este>Nada</este>
+		<sur>Nada</sur>
+		<oeste>Nada</oeste>
+	</room>	
+	<room name="Recibidor">
+		<norte>Sala</norte>
+		<este>Comedor</este>
+		<sur>Entrada</sur>
+		<oeste>Armario</oeste>
+	</room>	
+	<room name="Comedor">
+		<norte>Cocina</norte>
+		<este>Nada</este>
+		<sur>Nada</sur>
+		<oeste>Recibidor</oeste>
+	</room>	
+	<room name="Armario">
+		<norte>Nada</norte>
+		<este>Recibidor</este>
+		<sur>Nada</sur>
+		<oeste>Nada</oeste>
+	</room>	
+	<room name="Cocina">
+		<norte>Patio</norte>
+		<este>Nada</este>
+		<sur>Comedor</sur>
+		<oeste>Sala</oeste>
+	</room>
+	<room name="Sala">
+		<norte>PasilloCuartos</norte>
+		<este>Cocina</este>
+		<sur>Recibidor</sur>
+		<oeste>CuartoPrincipal</oeste>
+	</room>
+	<room name="CuartoPrincipal">
+		<norte>BanioPrincipal</norte>
+		<este>Sala</este>
+		<sur>Nada</sur>
+		<oeste>Nada</oeste>
+	</room>
+	<room name="BanioPrincipal">
+		<norte>Nada</norte>
+		<este>Nada</este>
+		<sur>CuartoPrincipal</sur>
+		<oeste>Nada</oeste>
+	</room>	
+	<room name="PasilloCuartos">
+		<norte>BanioChicos</norte>
+		<este>Nada</este>
+		<sur>Sala</sur>
+		<oeste>CuartoChicos</oeste>
+	</room>	
+	<room name="CuartoChicos">
+		<norte>Nada</norte>
+		<este>PasilloCuartos</este>
+		<sur>Nada</sur>
+		<oeste>Nada</oeste>
+	</room>		
+	<room name="BanioChicos">
+		<norte>Nada</norte>
+		<este>Nada</este>
+		<sur>PasilloCuartos</sur>
+		<oeste>Nada</oeste>
+	</room>	
+	<room name="Patio">
+		<norte>Nada</norte>
+		<este>Nada</este>
+		<sur>Cocina</sur>
+		<oeste>Nada</oeste>
+	</room>		
+</house>
