@@ -20,7 +20,7 @@ public class Command {
         return (commandWord == null);
     }
 
-    public boolean hasSecondWord(){
+    public boolean hasSecondWord() {
         return (secondWord != null);
     }
 }

@@ -22,8 +22,8 @@ public class Game {
     	"El mundo de Zull es un nuevo, increíbelmente aburrido juego de aventura.\n" +
         "Escribe 'ayuda' si necesitas ayuda.\n" +
         "\n" +
-        "Estás en ...\n" +
-        "Salidas: "); //nota: se necesita la habitación actual
+        "Estás en ...\n" + //nota: se necesita la habitación actual
+        "Salidas: "); //nota: se necesita las salidas de la habitación actual
         
       //nota: Esta función está incompleta, hace falta las habitaciones
     }
@@ -48,11 +48,11 @@ public class Game {
     }
     
     private void printHelp() {
-        System.out.println("Estás perdido. Estás solo. Deambulas");
-        System.out.println("alrededor de la universidad.");
-        System.out.println();
-        System.out.println("Tus comandos son:");
-        System.out.println("	ir, salir, ayuda");
+        System.out.println("Estás perdido. Estás solo. Deambulas\n" +
+        "alrededor de la universidad.\n" +
+        "\n" +
+        "Tus comandos son:\n" +
+        "	ir, salir, ayuda");
     }
     
     private void goRoom(Command command) 
