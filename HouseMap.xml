@@ -1,75 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <house>
-	<room name="Entrada">
-		<norte>Recibidor</norte>
-		<este>Nada</este>
-		<sur>Nada</sur>
-		<oeste>Nada</oeste>
+	<room name="Entrance">
+		<north>Drawing Room</north>
+		<east>Nothing</east>
+		<south>Nothing</south>
+		<west>Nothing</west>
 	</room>	
-	<room name="Recibidor">
-		<norte>Sala</norte>
-		<este>Comedor</este>
-		<sur>Entrada</sur>
-		<oeste>Armario</oeste>
+	<room name="Drawing Room">
+		<north>Living Room</north>
+		<east>Dining Room</east>
+		<south>Entrance</south>
+		<west>Closet</west>
 	</room>	
-	<room name="Comedor">
-		<norte>Cocina</norte>
-		<este>Nada</este>
-		<sur>Nada</sur>
-		<oeste>Recibidor</oeste>
+	<room name="Dining Room">
+		<north>Kitchen</north>
+		<east>Nothing</east	>
+		<south>Nothing</south>
+		<west>Drawing Room</west>
 	</room>	
-	<room name="Armario">
-		<norte>Nada</norte>
-		<este>Recibidor</este>
-		<sur>Nada</sur>
-		<oeste>Nada</oeste>
+	<room name="Closet">
+		<north>Nothing</north>
+		<east>Drawing Room</east>
+		<south>Nothing</south>
+		<west>Nothing</west>
 	</room>	
-	<room name="Cocina">
-		<norte>Patio</norte>
-		<este>Nada</este>
-		<sur>Comedor</sur>
-		<oeste>Sala</oeste>
+	<room name="Kitchen">
+		<north>Backyard</north>
+		<east>Nothing</east>
+		<south>Dining Room</south>
+		<west>Living Room</west>
 	</room>
-	<room name="Sala">
-		<norte>PasilloCuartos</norte>
-		<este>Cocina</este>
-		<sur>Recibidor</sur>
-		<oeste>CuartoPrincipal</oeste>
+	<room name="Living Room">
+		<north>Room's Hall</north>
+		<east>Kitchen</east>
+		<south>Drawing Room</south>
+		<west>Main Bedroom</west>
 	</room>
-	<room name="CuartoPrincipal">
-		<norte>BanioPrincipal</norte>
-		<este>Sala</este>
-		<sur>Nada</sur>
-		<oeste>Nada</oeste>
+	<room name="Main Bedroom">
+		<north>Main Bathroom</north>
+		<east>Living Room</east>
+		<south>Nothing</south>
+		<west>Nothing</west>
 	</room>
-	<room name="BanioPrincipal">
-		<norte>Nada</norte>
-		<este>Nada</este>
-		<sur>CuartoPrincipal</sur>
-		<oeste>Nada</oeste>
+	<room name="Main Bathroom">
+		<north>Nothing</north>
+		<east>Nothing</east>
+		<south>Main Bedroom</south>
+		<west>Nothing</west>
 	</room>	
-	<room name="PasilloCuartos">
-		<norte>BanioChicos</norte>
-		<este>Nada</este>
-		<sur>Sala</sur>
-		<oeste>CuartoChicos</oeste>
+	<room name="Room's Hall">
+		<north>Kid's Bathroom</north>
+		<east>Nothing</east>
+		<south>Living Room</south>
+		<west>Kid's Bedroom</west>
 	</room>	
-	<room name="CuartoChicos">
-		<norte>Nada</norte>
-		<este>PasilloCuartos</este>
-		<sur>Nada</sur>
-		<oeste>Nada</oeste>
+	<room name="Kid's Bedroom">
+		<north>Nothing</north>
+		<east>Room's Hall</east>
+		<south>Nothing</south>
+		<west>Nothing</west>
 	</room>		
-	<room name="BanioChicos">
-		<norte>Nada</norte>
-		<este>Nada</este>
-		<sur>PasilloCuartos</sur>
-		<oeste>Nada</oeste>
+	<room name="Kid's Bathroom">
+		<north>Nothing</north>
+		<east>Nothing</east>
+		<south>Room's Hall</south>
+		<west>Nothing</west>
 	</room>	
-	<room name="Patio">
-		<norte>Nada</norte>
-		<este>Nada</este>
-		<sur>Cocina</sur>
-		<oeste>Nada</oeste>
+	<room name="Backyard">
+		<north>Nothing</north>
+		<east>Nothing</east>
+		<south>Kitchen</south>
+		<west>Nothing</west>
 	</room>		
 </house>
