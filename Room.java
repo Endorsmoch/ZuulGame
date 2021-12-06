@@ -1,11 +1,11 @@
 public class Room {
 	
-	public String name;
-	public String description;
-	public Room northExit;
-	public Room southExit;
-	public Room eastExit;
-	public Room westExit;
+	private String name;
+	private String description;
+	private Room northExit;
+	private Room southExit;
+	private Room eastExit;
+	private Room westExit;
 	
 	public Room() {
 		
@@ -13,7 +13,7 @@ public class Room {
 	
 	public Room(String name) {
 		this.name = name;
-		this.description = "You are in the: " + name;
+		this.description = "Tu estas en: " + name;
 	}
 	
 	public void setExit(String exit, Room exitRoom) {
@@ -39,6 +39,43 @@ public class Room {
 		return description;
 	}
 	
+	public String getStringExits() {
+		String exits = "";
+		if(northExit != null) {
+            exits += "norte ";
+        }
+        if(eastExit != null) {
+        	 exits += "este ";
+        }
+        if(southExit != null) {
+        	 exits += "sur ";
+        }
+        if(westExit != null) {
+        	 exits += "oeste ";
+        }
+        return exits;
+	}
+	
+	public Room getNorthExit() {
+		return northExit;
+	}
+
+	public Room getSouthExit() {
+		return southExit;
+	}
+
+	public Room getEastExit() {
+		return eastExit;
+	}
+
+	public Room getWestExit() {
+		return westExit;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}

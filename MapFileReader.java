@@ -27,7 +27,8 @@ public class MapFileReader {
 			document.getDocumentElement().normalize();
 			
 			NodeList rooms = document.getElementsByTagName("room");
-			constructRoomList(rooms); //Crea lista de cuartos
+			constructRoomList(rooms);
+			setStartRoom(rooms);
 			
 			for (int i = 0; i < rooms.getLength(); i++) {
 				Node room = rooms.item(i);
@@ -59,14 +60,14 @@ public class MapFileReader {
 		}
 	}
 	
-	private void getCurrentRoom(NodeList rooms) {
+	private void setStartRoom(NodeList rooms) {
 		for(int i = 0; i < rooms.getLength(); i++) {
 			Node room = rooms.item(i);
 			if(room.getNodeType() == Node.ELEMENT_NODE) {
 				Element roomElement = (Element) room;
-				String current = roomElement.getAttribute("current");
+				String current = roomElement.getAttribute("start");
 				if(current.equals("true")) {
-					
+					list.setStartRoom(roomElement.getAttribute("name"));
 				}
 			}
 		}
@@ -77,7 +78,6 @@ public class MapFileReader {
 			Node exit = exits.item(i);
 			if(exit.getNodeType() == Node.ELEMENT_NODE) {
 				Element exitElement = (Element) exit;
-				System.out.println("Construct exit: "+exitElement.getTextContent());
 				list.updateRoomsListExits(roomName, exitElement.getTagName(), exitElement.getTextContent());
 			}
 		}

@@ -5,6 +5,7 @@ public class RoomList {
 
 	private ArrayList<Room> roomsList = new ArrayList<Room>();
 	private static RoomList instance;
+	private Room startRoom;
 	
 	private RoomList() {
 		
@@ -31,18 +32,24 @@ public class RoomList {
 	
 	private Room searchRoom(String roomName){
 		Room returnRoom = new Room();
-		System.out.println("Hey: "+roomName);
 		if(!roomName.equals("Nothing")) {
 			for(int i = 0; i < roomsList.size(); i++) {
 				if(roomName.equals(roomsList.get(i).getName())) {
 					returnRoom = roomsList.get(i);
 				}
 			}
-			System.out.println("My return Room is : "+returnRoom.getName());
 			return returnRoom;
 		}else {
 			return null;
 		}	
+	}
+	
+	public void setStartRoom(String startRoomName) {
+		startRoom = searchRoom(startRoomName);
+	}
+	
+	public Room getStartRoom() {
+		return startRoom;
 	}
 	
 	public void updateRoomsListExits(String roomToUpdate, String exit, String nameExitRoom) {
