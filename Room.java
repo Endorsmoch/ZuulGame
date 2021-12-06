@@ -7,23 +7,40 @@ public class Room {
 	public Room eastExit;
 	public Room westExit;
 	
+	public Room() {
+		
+	}
+	
 	public Room(String name) {
 		this.name = name;
 		this.description = "You are in the: " + name;
 	}
 	
-	public void setExits(Room north, Room east, Room south, Room west) {
-		if(north != null)
-            northExit = north;
-        if(east != null)
-            eastExit = east;
-        if(south != null)
-            southExit = south;
-        if(west != null)
-            westExit = west;
+	public void setExit(String exit, Room exitRoom) {
+		switch(exit) {
+		case "north":
+			this.northExit = exitRoom;
+			break;
+		case "south":
+			this.southExit = exitRoom;
+			break;
+		case "east":
+			this.eastExit = exitRoom;
+			break;
+		case "west":
+			this.westExit = exitRoom;
+			break;
+		default:
+			throw new RuntimeException("There is not that location option for an exit");
+		}
 	}
 	
 	public String getDescription() {
 		return description;
 	}
+	
+	public String getName() {
+		return name;
+	}
+	
 }

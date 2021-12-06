@@ -15,6 +15,8 @@ import org.xml.sax.SAXException;
 
 
 public class MapFileReader {
+	
+	 private RoomList list = RoomList.getInstance();
 
 	public void readFile() {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -25,14 +27,16 @@ public class MapFileReader {
 			document.getDocumentElement().normalize();
 			
 			NodeList rooms = document.getElementsByTagName("room");
-			for(int i = 0; i < rooms.getLength(); i++) {
+			constructRoomList(rooms); //Crea lista de cuartos
+			
+			for (int i = 0; i < rooms.getLength(); i++) {
 				Node room = rooms.item(i);
 				if(room.getNodeType() == Node.ELEMENT_NODE) {
 					Element roomElement = (Element) room;
-					//System.out.println("Room name: "+ roomElement.getAttribute("name"));
+					NodeList roomExitsList = roomElement.getChildNodes();
+					constructExits(roomElement.getAttribute("name"), roomExitsList);
 				}
 			}
-			
 		}catch(ParserConfigurationException e){
 			e.printStackTrace();
 		}catch(SAXException e) {
@@ -42,5 +46,40 @@ public class MapFileReader {
 		}
 		
 		
+	}
+	
+	private void constructRoomList(NodeList rooms) {
+		for(int i = 0; i < rooms.getLength(); i++) {
+			Node room = rooms.item(i);
+			if(room.getNodeType() == Node.ELEMENT_NODE) {
+				Element roomElement = (Element) room;
+				Room newHouseRoom = new Room(roomElement.getAttribute("name"));
+				list.addRoom(newHouseRoom);
+			}
+		}
+	}
+	
+	private void getCurrentRoom(NodeList rooms) {
+		for(int i = 0; i < rooms.getLength(); i++) {
+			Node room = rooms.item(i);
+			if(room.getNodeType() == Node.ELEMENT_NODE) {
+				Element roomElement = (Element) room;
+				String current = roomElement.getAttribute("current");
+				if(current.equals("true")) {
+					
+				}
+			}
+		}
+	}
+	
+	private void constructExits(String roomName, NodeList exits) {
+		for(int i = 0; i < exits.getLength(); i++) {
+			Node exit = exits.item(i);
+			if(exit.getNodeType() == Node.ELEMENT_NODE) {
+				Element exitElement = (Element) exit;
+				System.out.println("Construct exit: "+exitElement.getTextContent());
+				list.updateRoomsListExits(roomName, exitElement.getTagName(), exitElement.getTextContent());
+			}
+		}
 	}
 }

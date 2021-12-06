@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <house>
-	<room name="Entrance">
+	<room name="Entrance" current="true">
 		<north>Drawing Room</north>
 		<east>Nothing</east>
 		<south>Nothing</south>
