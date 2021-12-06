@@ -23,7 +23,7 @@ public class Game {
 	
     private void printWelcome(){
         System.out.println("!Bienvenido al mundo de Zull!\n" +
-    	"El mundo de Zull es un nuevo, increíbelmente aburrido juego de aventura.\n" +
+    	"El mundo de Zull es un nuevo juego de aventura.\n" +
         "Escribe 'ayuda' si necesitas ayuda.\n" +
         "\n" +
         "Estás en " + currentRoom.getName() +"\n" + 
