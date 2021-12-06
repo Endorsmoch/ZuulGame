@@ -1,10 +1,15 @@
-
+import exceptions.IsNotCommandException;
+import exceptions.SecondParameterException;
 public class Game {
 	private Parser parser;
 	private Room currentRoom;
 
 	public Game(){
 		parser = new Parser();
+		initConfig();
+	}
+	
+	private void initConfig() {
 		MapFileReader file = new MapFileReader();
 		file.readFile();
 		currentRoom =  RoomList.getInstance().getStartRoom();
@@ -33,20 +38,23 @@ public class Game {
     private boolean processCommand(Command command){
         boolean wantToQuit = false;
 
-        if(command.isUnknown()) {
-            System.out.println("No sé a qué te refieres...");
-            return false;
+        try {
+        	if(command.isUnknown()) {
+        		throw new IsNotCommandException("Comando incorrecto"); 
+            }
+        	 String commandWord = command.getCommandWord();
+             if (commandWord.equals("ayuda"))
+                 printHelp();
+             else if (commandWord.equals("ir"))
+                 goRoom(command);
+             else if (commandWord.equals("salir"))
+                 wantToQuit = quit(command);
+
+             return wantToQuit;
+        }catch(IsNotCommandException e){
+        	System.out.println(e.getMessage());
+        	 return false;
         }
-
-        String commandWord = command.getCommandWord();
-        if (commandWord.equals("ayuda"))
-            printHelp();
-        else if (commandWord.equals("ir"))
-            goRoom(command);
-        else if (commandWord.equals("salir"))
-            wantToQuit = quit(command);
-
-        return wantToQuit;
     }
     
     private void printHelp() {
@@ -59,44 +67,50 @@ public class Game {
     
     private void goRoom(Command command) 
     {
-        if(!command.hasSecondWord()) {
-            System.out.println("¿A donde vamos?");
-            return;
-        }
+    	try {
+    		if(!command.hasSecondWord()) {
+    			throw new SecondParameterException("¿A donde vamos?"); 
+            }
+    		String direction = command.getSecondWord();
+    	       
+            Room nextRoom = null;
+            if(direction.equals("norte")) {
+                nextRoom = currentRoom.getNorthExit();
+            }
+            if(direction.equals("este")) {
+                nextRoom = currentRoom.getEastExit();
+            }
+            if(direction.equals("sur")) {
+                nextRoom = currentRoom.getSouthExit();
+            }
+            if(direction.equals("oeste")) {
+                nextRoom = currentRoom.getWestExit();
+            }
 
-        String direction = command.getSecondWord();
-       
-        Room nextRoom = null;
-        if(direction.equals("norte")) {
-            nextRoom = currentRoom.getNorthExit();
-        }
-        if(direction.equals("este")) {
-            nextRoom = currentRoom.getEastExit();
-        }
-        if(direction.equals("sur")) {
-            nextRoom = currentRoom.getSouthExit();
-        }
-        if(direction.equals("oeste")) {
-            nextRoom = currentRoom.getWestExit();
-        }
+            if (nextRoom == null) {
+                System.out.println("Ahi no hay una puerta!");
+            }
+            else {
+                currentRoom = nextRoom;
+                System.out.println(currentRoom.getDescription());
+                System.out.print("Salidas: " + currentRoom.getStringExits() + "\n");
+            }
+    	}catch(SecondParameterException e) {
+    		System.out.println(e.getMessage());
+    	}
 
-        if (nextRoom == null) {
-            System.out.println("Ahi no hay una puerta!");
-        }
-        else {
-            currentRoom = nextRoom;
-            System.out.println(currentRoom.getDescription());
-            System.out.print("Salidas: " + currentRoom.getStringExits() + "\n");
-        }
     }
     
     private boolean quit(Command command) {
-        if(command.hasSecondWord()) {
-            System.out.println("¿Salir a donde?");
-            return false;
-        }
-        else {
-            return true;
-        }
+    	try {
+    		 if(command.hasSecondWord()) {
+    			 throw new SecondParameterException("¿Salir a donde?");  
+    	     }
+    		 return true;
+    	}catch(SecondParameterException e) {
+    		System.out.println(e.getMessage());
+    		return false;
+    	}
+       
     }
 }

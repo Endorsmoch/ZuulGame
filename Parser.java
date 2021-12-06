@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+
 public class Parser {
 	private CommandWords commands;
     private Scanner reader;
@@ -9,8 +10,7 @@ public class Parser {
         reader = new Scanner(System.in);
     }
 
-    public Command getCommand() 
-    {
+    public Command getCommand(){
         String inputLine;
         String word1 = null;
         String word2 = null;
@@ -27,7 +27,7 @@ public class Parser {
                 // nota: se ignora el resto de la línea de entrada.
             }
         }
-
+        
         if(commands.isCommand(word1)) {
             return new Command(word1, word2);
         }
