@@ -1,9 +1,13 @@
 
 public class Game {
 	private Parser parser;
+	private Room currentRoom;
 
 	public Game(){
 		parser = new Parser();
+		MapFileReader file = new MapFileReader();
+		file.readFile();
+		currentRoom =  RoomList.getInstance().getStartRoom();
 	}
 	
 	public void play(){
@@ -22,10 +26,8 @@ public class Game {
     	"El mundo de Zull es un nuevo, increíbelmente aburrido juego de aventura.\n" +
         "Escribe 'ayuda' si necesitas ayuda.\n" +
         "\n" +
-        "Estás en ...\n" + //nota: se necesita la habitación actual
-        "Salidas: "); //nota: se necesita las salidas de la habitación actual
-        
-      //nota: Esta función está incompleta, hace falta las habitaciones
+        "Estás en " + currentRoom.getName() +"\n" + 
+        "Salidas: " + currentRoom.getStringExits()); 
     }
 
     private boolean processCommand(Command command){
@@ -64,7 +66,28 @@ public class Game {
 
         String direction = command.getSecondWord();
        
-        //nota: Esta función está incompleta, hace falta las habitaciones
+        Room nextRoom = null;
+        if(direction.equals("norte")) {
+            nextRoom = currentRoom.getNorthExit();
+        }
+        if(direction.equals("este")) {
+            nextRoom = currentRoom.getEastExit();
+        }
+        if(direction.equals("sur")) {
+            nextRoom = currentRoom.getSouthExit();
+        }
+        if(direction.equals("oeste")) {
+            nextRoom = currentRoom.getWestExit();
+        }
+
+        if (nextRoom == null) {
+            System.out.println("Ahi no hay una puerta!");
+        }
+        else {
+            currentRoom = nextRoom;
+            System.out.println(currentRoom.getDescription());
+            System.out.print("Salidas: " + currentRoom.getStringExits() + "\n");
+        }
     }
     
     private boolean quit(Command command) {
