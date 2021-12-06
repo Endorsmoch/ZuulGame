@@ -12,6 +12,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import exceptions.TagNameException;
 
 
 public class MapFileReader {
@@ -23,7 +24,7 @@ public class MapFileReader {
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new File("HouseMap.xml"));
-			
+			verifyTags(document);
 			document.getDocumentElement().normalize();
 			
 			NodeList rooms = document.getElementsByTagName("room");
@@ -82,4 +83,30 @@ public class MapFileReader {
 			}
 		}
 	}
+	
+	private void verifyTags(Document documentoXml) throws TagNameException{
+        try{
+            NodeList tags = documentoXml.getElementsByTagName("*");
+            for(int i=0;i<tags.getLength();i++){
+                switch(tags.item(i).getNodeName()){
+                    case "house" -> {
+                    }
+                    case "room" -> {
+                    }
+                    case "north" -> {
+                    }
+                    case "east" -> {
+                    }
+                    case "south" -> {
+                    }
+                    case "west" -> {
+                    }
+                    default -> throw new TagNameException("Wrong tag found"); 
+                }
+            }
+        }catch(TagNameException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 }
