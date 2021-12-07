@@ -46,8 +46,6 @@ public class MapFileReader {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	private void constructRoomList(NodeList rooms) {
@@ -84,24 +82,13 @@ public class MapFileReader {
 		}
 	}
 	
-	private void verifyTags(Document documentoXml) throws TagNameException{
+	private void verifyTags(Document documentoXml){
         try{
             NodeList tags = documentoXml.getElementsByTagName("*");
             for(int i=0;i<tags.getLength();i++){
-                switch(tags.item(i).getNodeName()){
-                    case "house" -> {
-                    }
-                    case "room" -> {
-                    }
-                    case "north" -> {
-                    }
-                    case "east" -> {
-                    }
-                    case "south" -> {
-                    }
-                    case "west" -> {
-                    }
-                    default -> throw new TagNameException("Wrong tag found"); 
+            	String tagName = tags.item(i).getNodeName();
+                if(!isCorrectTag(tagName)) {
+                	throw new TagNameException("Wrong tag found: " + tagName);
                 }
             }
         }catch(TagNameException e){
@@ -109,4 +96,9 @@ public class MapFileReader {
             System.exit(1);
         }
     }
+	
+	private boolean isCorrectTag(String tagName) {
+		return (tagName.equals("house") || tagName.equals("room") || tagName.equals("north") ||
+				tagName.equals("east") || tagName.equals("south") || tagName.equals("west"));
+	}
 }
