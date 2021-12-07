@@ -30,15 +30,8 @@ public class MapFileReader {
 			NodeList rooms = document.getElementsByTagName("room");
 			constructRoomList(rooms);
 			setStartRoom(rooms);
+			constructExits(rooms);
 			
-			for (int i = 0; i < rooms.getLength(); i++) {
-				Node room = rooms.item(i);
-				if(isAnElementNode(room)) {
-					Element roomElement = (Element) room;
-					NodeList roomExitsList = roomElement.getChildNodes();
-					constructExits(roomElement.getAttribute("name"), roomExitsList);
-				}
-			}
 		}catch(ParserConfigurationException e){
 			e.printStackTrace();
 		}catch(SAXException e) {
@@ -72,12 +65,19 @@ public class MapFileReader {
 		}
 	}
 	
-	private void constructExits(String roomName, NodeList exits) {
-		for(int i = 0; i < exits.getLength(); i++) {
-			Node exit = exits.item(i);
-			if(isAnElementNode(exit)) {
-				Element exitElement = (Element) exit;
-				list.updateRoomsListExits(roomName, exitElement.getTagName(), exitElement.getTextContent());
+	private void constructExits(NodeList rooms) {
+		for (int i = 0; i < rooms.getLength(); i++) {
+			Node room = rooms.item(i);
+			if(isAnElementNode(room)) {
+				Element roomElement = (Element) room;
+				NodeList roomExitsList = roomElement.getChildNodes();
+				for(int j = 0; j < roomExitsList.getLength(); j++) {
+					Node exit = roomExitsList.item(j);
+					if(isAnElementNode(exit)) {
+						Element exitElement = (Element) exit;
+						list.updateRoomsListExits(roomElement.getAttribute("name"), exitElement.getTagName(), exitElement.getTextContent());
+					}
+				}
 			}
 		}
 	}
