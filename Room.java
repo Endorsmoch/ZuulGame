@@ -41,16 +41,16 @@ public class Room {
 	
 	public String getStringExits() {
 		String exits = "";
-		if(northExit != null) {
+		if(!northExit.isNull()) {
             exits += "norte ";
         }
-        if(eastExit != null) {
+        if(!eastExit.isNull()) {
         	 exits += "este ";
         }
-        if(southExit != null) {
+        if(!southExit.isNull()) {
         	 exits += "sur ";
         }
-        if(westExit != null) {
+        if(!westExit.isNull()) {
         	 exits += "oeste ";
         }
         return exits;
@@ -78,6 +78,10 @@ public class Room {
 
 	public String getName() {
 		return name;
+	}
+	
+	public boolean isNull() {
+		return false;
 	}
 	
 }

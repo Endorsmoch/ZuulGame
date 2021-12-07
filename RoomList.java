@@ -40,7 +40,7 @@ public class RoomList {
 			}
 			return returnRoom;
 		}else {
-			return null;
+			return new NullRoom();
 		}	
 	}
 	
