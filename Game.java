@@ -43,13 +43,17 @@ public class Game {
         		throw new IsNotCommandException("Comando incorrecto"); 
             }
         	 String commandWord = command.getCommandWord();
-             if (commandWord.equals("ayuda"))
-                 printHelp();
-             else if (commandWord.equals("ir"))
-                 goRoom(command);
-             else if (commandWord.equals("salir"))
-                 wantToQuit = quit(command);
-
+        	 switch(commandWord) {
+        	 case "ayuda":
+        		 printHelp();
+        		 break;
+        	 case "ir":
+        		 goRoom(command);
+        		 break;
+        	 case "salir":
+        		 wantToQuit = quit(command);
+        		 break;
+        	 }
              return wantToQuit;
         }catch(IsNotCommandException e){
         	System.out.println(e.getMessage());
@@ -74,6 +78,7 @@ public class Game {
     		String direction = command.getSecondWord();
     	       
             Room nextRoom = new NullRoom();
+            
             if(direction.equals("norte")) {
                 nextRoom = currentRoom.getNorthExit();
             }
