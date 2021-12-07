@@ -17,7 +17,7 @@ import exceptions.TagNameException;
 
 public class MapFileReader {
 	
-	 private RoomList list = RoomList.getInstance();
+	private RoomList list = RoomList.getInstance();
 
 	public void readFile() {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -30,15 +30,8 @@ public class MapFileReader {
 			NodeList rooms = document.getElementsByTagName("room");
 			constructRoomList(rooms);
 			setStartRoom(rooms);
+			constructExits(rooms);
 			
-			for (int i = 0; i < rooms.getLength(); i++) {
-				Node room = rooms.item(i);
-				if(room.getNodeType() == Node.ELEMENT_NODE) {
-					Element roomElement = (Element) room;
-					NodeList roomExitsList = roomElement.getChildNodes();
-					constructExits(roomElement.getAttribute("name"), roomExitsList);
-				}
-			}
 		}catch(ParserConfigurationException e){
 			e.printStackTrace();
 		}catch(SAXException e) {
@@ -46,14 +39,12 @@ public class MapFileReader {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
 	private void constructRoomList(NodeList rooms) {
 		for(int i = 0; i < rooms.getLength(); i++) {
 			Node room = rooms.item(i);
-			if(room.getNodeType() == Node.ELEMENT_NODE) {
+			if(isAnElementNode(room)) {
 				Element roomElement = (Element) room;
 				Room newHouseRoom = new Room(roomElement.getAttribute("name"));
 				list.addRoom(newHouseRoom);
@@ -64,7 +55,7 @@ public class MapFileReader {
 	private void setStartRoom(NodeList rooms) {
 		for(int i = 0; i < rooms.getLength(); i++) {
 			Node room = rooms.item(i);
-			if(room.getNodeType() == Node.ELEMENT_NODE) {
+			if(isAnElementNode(room)) {
 				Element roomElement = (Element) room;
 				String current = roomElement.getAttribute("start");
 				if(current.equals("true")) {
@@ -74,34 +65,34 @@ public class MapFileReader {
 		}
 	}
 	
-	private void constructExits(String roomName, NodeList exits) {
-		for(int i = 0; i < exits.getLength(); i++) {
-			Node exit = exits.item(i);
-			if(exit.getNodeType() == Node.ELEMENT_NODE) {
-				Element exitElement = (Element) exit;
-				list.updateRoomsListExits(roomName, exitElement.getTagName(), exitElement.getTextContent());
+	private void constructExits(NodeList rooms) {
+		for (int i = 0; i < rooms.getLength(); i++) {
+			Node room = rooms.item(i);
+			if(isAnElementNode(room)) {
+				Element roomElement = (Element) room;
+				NodeList roomExitsList = roomElement.getChildNodes();
+				for(int j = 0; j < roomExitsList.getLength(); j++) {
+					Node exit = roomExitsList.item(j);
+					if(isAnElementNode(exit)) {
+						Element exitElement = (Element) exit;
+						list.updateRoomsListExits(roomElement.getAttribute("name"), exitElement.getTagName(), exitElement.getTextContent());
+					}
+				}
 			}
 		}
 	}
 	
-	private void verifyTags(Document documentoXml) throws TagNameException{
+	private boolean isAnElementNode(Node node) {
+		return node.getNodeType() == Node.ELEMENT_NODE;
+    }
+	
+	private void verifyTags(Document documentoXml){
         try{
             NodeList tags = documentoXml.getElementsByTagName("*");
             for(int i=0;i<tags.getLength();i++){
-                switch(tags.item(i).getNodeName()){
-                    case "house" -> {
-                    }
-                    case "room" -> {
-                    }
-                    case "north" -> {
-                    }
-                    case "east" -> {
-                    }
-                    case "south" -> {
-                    }
-                    case "west" -> {
-                    }
-                    default -> throw new TagNameException("Wrong tag found"); 
+            	String tagName = tags.item(i).getNodeName();
+                if(!isCorrectTag(tagName)) {
+                	throw new TagNameException("Wrong tag found: " + tagName);
                 }
             }
         }catch(TagNameException e){
@@ -109,4 +100,9 @@ public class MapFileReader {
             System.exit(1);
         }
     }
+	
+	private boolean isCorrectTag(String tagName) {
+		return (tagName.equals("house") || tagName.equals("room") || tagName.equals("north") ||
+				tagName.equals("east") || tagName.equals("south") || tagName.equals("west"));
+	}
 }
