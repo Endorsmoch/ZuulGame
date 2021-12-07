@@ -17,7 +17,7 @@ import exceptions.TagNameException;
 
 public class MapFileReader {
 	
-	 private RoomList list = RoomList.getInstance();
+	private RoomList list = RoomList.getInstance();
 
 	public void readFile() {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -33,7 +33,7 @@ public class MapFileReader {
 			
 			for (int i = 0; i < rooms.getLength(); i++) {
 				Node room = rooms.item(i);
-				if(room.getNodeType() == Node.ELEMENT_NODE) {
+				if(isAnElementNode(room)) {
 					Element roomElement = (Element) room;
 					NodeList roomExitsList = roomElement.getChildNodes();
 					constructExits(roomElement.getAttribute("name"), roomExitsList);
@@ -51,7 +51,7 @@ public class MapFileReader {
 	private void constructRoomList(NodeList rooms) {
 		for(int i = 0; i < rooms.getLength(); i++) {
 			Node room = rooms.item(i);
-			if(room.getNodeType() == Node.ELEMENT_NODE) {
+			if(isAnElementNode(room)) {
 				Element roomElement = (Element) room;
 				Room newHouseRoom = new Room(roomElement.getAttribute("name"));
 				list.addRoom(newHouseRoom);
@@ -62,7 +62,7 @@ public class MapFileReader {
 	private void setStartRoom(NodeList rooms) {
 		for(int i = 0; i < rooms.getLength(); i++) {
 			Node room = rooms.item(i);
-			if(room.getNodeType() == Node.ELEMENT_NODE) {
+			if(isAnElementNode(room)) {
 				Element roomElement = (Element) room;
 				String current = roomElement.getAttribute("start");
 				if(current.equals("true")) {
@@ -75,12 +75,16 @@ public class MapFileReader {
 	private void constructExits(String roomName, NodeList exits) {
 		for(int i = 0; i < exits.getLength(); i++) {
 			Node exit = exits.item(i);
-			if(exit.getNodeType() == Node.ELEMENT_NODE) {
+			if(isAnElementNode(exit)) {
 				Element exitElement = (Element) exit;
 				list.updateRoomsListExits(roomName, exitElement.getTagName(), exitElement.getTextContent());
 			}
 		}
 	}
+	
+	private boolean isAnElementNode(Node node) {
+		return node.getNodeType() == Node.ELEMENT_NODE;
+    }
 	
 	private void verifyTags(Document documentoXml){
         try{
