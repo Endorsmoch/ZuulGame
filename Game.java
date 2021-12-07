@@ -78,18 +78,19 @@ public class Game {
     		String direction = command.getSecondWord();
     	       
             Room nextRoom = new NullRoom();
-            
-            if(direction.equals("norte")) {
-                nextRoom = currentRoom.getNorthExit();
-            }
-            if(direction.equals("este")) {
-                nextRoom = currentRoom.getEastExit();
-            }
-            if(direction.equals("sur")) {
-                nextRoom = currentRoom.getSouthExit();
-            }
-            if(direction.equals("oeste")) {
-                nextRoom = currentRoom.getWestExit();
+            switch(direction) {
+            case "norte":
+            	nextRoom = currentRoom.getNorthExit();
+            	break;
+            case "este":
+            	nextRoom = currentRoom.getEastExit();
+            	break;
+            case "sur":
+            	nextRoom = currentRoom.getSouthExit();
+            	break;
+            case "oeste":
+            	nextRoom = currentRoom.getWestExit();
+            	break;
             }
 
             if (nextRoom.isNull()) {
