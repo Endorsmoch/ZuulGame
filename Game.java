@@ -73,7 +73,7 @@ public class Game {
             }
     		String direction = command.getSecondWord();
     	       
-            Room nextRoom = null;
+            Room nextRoom = new NullRoom();
             if(direction.equals("norte")) {
                 nextRoom = currentRoom.getNorthExit();
             }
@@ -87,7 +87,7 @@ public class Game {
                 nextRoom = currentRoom.getWestExit();
             }
 
-            if (nextRoom == null) {
+            if (nextRoom.isNull()) {
                 System.out.println("Ahi no hay una puerta!");
             }
             else {
