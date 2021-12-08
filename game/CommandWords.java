@@ -1,3 +1,4 @@
+package game;
 
 public class CommandWords {
 	private static final String[] validCommands = {"ir", "salir", "ayuda"};
