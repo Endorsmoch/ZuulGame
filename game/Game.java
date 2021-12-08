@@ -1,3 +1,10 @@
+package game;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Test;
+
 import exceptions.IsNotCommandException;
 import exceptions.SecondParameterException;
 public class Game {
@@ -107,7 +114,34 @@ public class Game {
 
     }
     
-    private boolean quit(Command command) {
+    @Test
+	public void testGoRoom() {
+    	Room initialRoom = new Room("initialRoom");
+    	Room southRoom = new Room("southRoom");
+    	
+    	initialRoom.setExit("north", new NullRoom());
+    	initialRoom.setExit("south", southRoom);
+    	initialRoom.setExit("east", new NullRoom());
+    	initialRoom.setExit("west", new NullRoom());
+    	
+    	southRoom.setExit("north", initialRoom);
+    	southRoom.setExit("south", new NullRoom());
+    	southRoom.setExit("east", new NullRoom());
+    	southRoom.setExit("west", new NullRoom());
+    	
+    	initialRoom.setExit("south", southRoom);
+    	
+    	currentRoom = initialRoom;
+    	
+    	printWelcome();
+    	
+		Command command = new Command("ir", "sur");
+		goRoom(command);
+		
+		assertEquals(southRoom, currentRoom);
+	}
+    
+    private boolean quit(Command command) throws SecondParameterException{
     	try {
     		 if(command.hasSecondWord()) {
     			 throw new SecondParameterException("¿Salir a donde?");  
@@ -117,6 +151,11 @@ public class Game {
     		System.out.println(e.getMessage());
     		return false;
     	}
-       
+    }
+    
+    @Test//(expected = SecondParameterException.class)
+    public void testQuit() {
+    	Command commandQuit = new Command("salir", null);
+    	assertTrue(quit(commandQuit));
     }
 }

@@ -1,4 +1,7 @@
+package game;
 
+
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -104,5 +108,10 @@ public class MapFileReader {
 	private boolean isCorrectTag(String tagName) {
 		return (tagName.equals("house") || tagName.equals("room") || tagName.equals("north") ||
 				tagName.equals("east") || tagName.equals("south") || tagName.equals("west"));
+	}
+	
+	@Test
+	public void test() {
+		assertTrue(isCorrectTag("room"));
 	}
 }
