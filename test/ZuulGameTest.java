@@ -2,25 +2,24 @@ package test;
 
 
 import static org.junit.Assert.*;
-
+import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Before;
 import org.junit.Test;
-
-import exceptions.TagNameException;
-import game.Game;
+import org.xml.sax.SAXException;
+import game.MapFileReader;
 
 public class ZuulGameTest {
 	
-	/*
-	@Test(expected = TagNameException.class)
-	public void wrongTag() {
-		Game game = new Game();
-		game.play();
-	}*/
-
-	@Test(expected = NullPointerException.class)
-	public void whenExceptionThrown_thenExpectationSatisfied() {
-	    String test = null;
-	    test.length();
+	private MapFileReader reader;
+	
+	@Before
+	public void beforeTest()  throws ParserConfigurationException, SAXException, IOException{
+		reader = new MapFileReader();
+	}
+	
+	@Test
+	public void test() {
+		assertTrue(reader.readFile());
 	}
 }

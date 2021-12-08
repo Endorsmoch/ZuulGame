@@ -18,19 +18,25 @@ public class Game {
 	
 	private void initConfig() {
 		MapFileReader file = new MapFileReader();
-		file.readFile();
-		currentRoom =  RoomList.getInstance().getStartRoom();
+		if(file.readFile()) {
+			currentRoom =  RoomList.getInstance().getStartRoom();
+		}
 	}
 	
 	public void play(){
 		printWelcome();
 		
-        boolean finished = false;
-        while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        System.out.println("Gracias por jugar.\nAdios.");
+		if(currentRoom != null) {
+			boolean finished = false;
+	        while (! finished) {
+	            Command command = parser.getCommand();
+	            finished = processCommand(command);
+	        }
+	        System.out.println("Gracias por jugar.\nAdios.");
+		}else {
+			System.out.println("El archivo es incorrecto.\nAdios.");
+		}
+        
 	}
 	
     private void printWelcome(){
@@ -114,33 +120,6 @@ public class Game {
 
     }
     
-    @Test
-	public void testGoRoom() {
-    	Room initialRoom = new Room("initialRoom");
-    	Room southRoom = new Room("southRoom");
-    	
-    	initialRoom.setExit("north", new NullRoom());
-    	initialRoom.setExit("south", southRoom);
-    	initialRoom.setExit("east", new NullRoom());
-    	initialRoom.setExit("west", new NullRoom());
-    	
-    	southRoom.setExit("north", initialRoom);
-    	southRoom.setExit("south", new NullRoom());
-    	southRoom.setExit("east", new NullRoom());
-    	southRoom.setExit("west", new NullRoom());
-    	
-    	initialRoom.setExit("south", southRoom);
-    	
-    	currentRoom = initialRoom;
-    	
-    	printWelcome();
-    	
-		Command command = new Command("ir", "sur");
-		goRoom(command);
-		
-		assertEquals(southRoom, currentRoom);
-	}
-    
     private boolean quit(Command command) throws SecondParameterException{
     	try {
     		 if(command.hasSecondWord()) {
@@ -151,11 +130,5 @@ public class Game {
     		System.out.println(e.getMessage());
     		return false;
     	}
-    }
-    
-    @Test//(expected = SecondParameterException.class)
-    public void testQuit() {
-    	Command commandQuit = new Command("salir", null);
-    	assertTrue(quit(commandQuit));
     }
 }
