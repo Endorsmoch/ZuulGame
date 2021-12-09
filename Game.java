@@ -69,9 +69,10 @@ public class Game {
         "	ir, salir, ayuda");
     }
     
-    private void goRoom(Command command, Room actualRoom) 
+    private void goRoom(Command command, Room actualRoom)
     {
-    	currentRoom = gameMovement.goRoom(command, actualRoom);
+    	GameMovement mover =  new GameMovement();
+    	currentRoom = mover.goRoom(command, actualRoom);
     }
     
     private boolean quit(Command command) {

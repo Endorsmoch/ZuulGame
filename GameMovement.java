@@ -1,13 +1,13 @@
 import exceptions.SecondParameterException;
 
-public class gameMovement {
+public class GameMovement {
 	
-	public static Room goRoom(Command command, Room currentRoom) {
+	public Room goRoom(Command command, Room currentRoom) {
 		try {
     		if(!command.hasSecondWord()) {
     			throw new SecondParameterException("¿A donde vamos?"); 
             }
-    		String direction = command.getSecondWord();
+     		String direction = command.getSecondWord();
     	       
             Room nextRoom = new NullRoom();
             switch(direction) {
