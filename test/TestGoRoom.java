@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -21,6 +22,7 @@ public class TestGoRoom {
 	Parser parser;
 	Room beforeRoom;
 	Room nextRoom;
+	Room currentRoom;
 	
 	@Before
 	public void preconditionGoRoom() {
@@ -39,8 +41,13 @@ public class TestGoRoom {
 	@Test
 	public void goRoomTestUnos() {
 		GameMovement mover = new GameMovement();
-		Room currentRoom = mover.goRoom(command,  beforeRoom);
-		assertEquals(currentRoom, beforeRoom);
+		currentRoom = mover.goRoom(command,  beforeRoom);
+		//assertEquals(currentRoom, beforeRoom);
+	}
+	
+	@After
+	public void postconditionTest() {
+		assertEquals(currentRoom.getName(),nextRoom.getName());
 	}
 
 }
