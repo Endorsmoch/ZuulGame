@@ -1,8 +1,5 @@
 package game;
 
-
-import static org.junit.Assert.assertTrue;
-
 import java.io.File;
 import java.io.IOException;
 
@@ -10,8 +7,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.Before;
-import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -25,11 +20,12 @@ public class MapFileReader {
 	private RoomList list = RoomList.getInstance();
 
 	public boolean readFile() {
+
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new File("HouseMap.xml"));
-			
+	
 			if(verifyTags(document)) {
 				document.getDocumentElement().normalize();
 				NodeList rooms = document.getElementsByTagName("room");

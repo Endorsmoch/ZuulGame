@@ -1,9 +1,4 @@
 package game;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import org.junit.Test;
 
 import exceptions.IsNotCommandException;
 import exceptions.SecondParameterException;
@@ -18,6 +13,7 @@ public class Game {
 	
 	private void initConfig() {
 		MapFileReader file = new MapFileReader();
+
 		if(file.readFile()) {
 			currentRoom =  RoomList.getInstance().getStartRoom();
 		}
@@ -43,7 +39,7 @@ public class Game {
     	"El mundo de Zull es un nuevo juego de aventura.\n" +
         "Escribe 'ayuda' si necesitas ayuda.\n" +
         "\n" +
-        "Estás en " + currentRoom.getName() +"\n" + 
+        "EstÃ¡s en " + currentRoom.getName() +"\n" + 
         "Salidas: " + currentRoom.getStringExits()); 
     }
 
@@ -60,7 +56,7 @@ public class Game {
         		 printHelp();
         		 break;
         	 case "ir":
-        		 goRoom(command);
+        		 goRoom(command, currentRoom);
         		 break;
         	 case "salir":
         		 wantToQuit = quit(command);
@@ -74,55 +70,23 @@ public class Game {
     }
     
     private void printHelp() {
-        System.out.println("Estás perdido. Estás solo. Deambulas\n" +
+        System.out.println("EstÃ¡s perdido. EstÃ¡s solo. Deambulas\n" +
         "alrededor de la universidad.\n" +
         "\n" +
         "Tus comandos son:\n" +
         "	ir, salir, ayuda");
     }
     
-    private void goRoom(Command command) 
+    private void goRoom(Command command, Room actualRoom)
     {
-    	try {
-    		if(!command.hasSecondWord()) {
-    			throw new SecondParameterException("¿A donde vamos?"); 
-            }
-    		String direction = command.getSecondWord();
-    	       
-            Room nextRoom = new NullRoom();
-            switch(direction) {
-            case "norte":
-            	nextRoom = currentRoom.getNorthExit();
-            	break;
-            case "este":
-            	nextRoom = currentRoom.getEastExit();
-            	break;
-            case "sur":
-            	nextRoom = currentRoom.getSouthExit();
-            	break;
-            case "oeste":
-            	nextRoom = currentRoom.getWestExit();
-            	break;
-            }
-
-            if (nextRoom.isNull()) {
-                System.out.println("Ahi no hay una puerta!");
-            }
-            else {
-                currentRoom = nextRoom;
-                System.out.println(currentRoom.getDescription());
-                System.out.print("Salidas: " + currentRoom.getStringExits() + "\n");
-            }
-    	}catch(SecondParameterException e) {
-    		System.out.println(e.getMessage());
-    	}
-
+    	GameMovement mover =  new GameMovement();
+    	currentRoom = mover.goRoom(command, actualRoom);
     }
     
-    private boolean quit(Command command) throws SecondParameterException{
+    private boolean quit(Command command) {
     	try {
     		 if(command.hasSecondWord()) {
-    			 throw new SecondParameterException("¿Salir a donde?");  
+    			 throw new SecondParameterException("Â¿Salir a donde?");  
     	     }
     		 return true;
     	}catch(SecondParameterException e) {

@@ -1,6 +1,6 @@
 package game;
-import java.util.Scanner;
 
+import java.util.Scanner;
 
 public class Parser {
 	private CommandWords commands;
@@ -25,7 +25,7 @@ public class Parser {
             word1 = tokenizer.next();
             if(tokenizer.hasNext()) {
                 word2 = tokenizer.next();
-                // nota: se ignora el resto de la línea de entrada.
+                // nota: se ignora el resto de la lÃ­nea de entrada.
             }
         }
         
