@@ -42,7 +42,6 @@ public class TestGoRoom {
 	public void goRoomTestUnos() {
 		GameMovement mover = new GameMovement();
 		currentRoom = mover.goRoom(command,  beforeRoom);
-		//assertEquals(currentRoom, beforeRoom);
 	}
 	
 	@After
