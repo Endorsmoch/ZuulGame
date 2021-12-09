@@ -1,3 +1,5 @@
+package game;
+
 import exceptions.SecondParameterException;
 
 public class GameMovement {
@@ -9,21 +11,7 @@ public class GameMovement {
             }
      		String direction = command.getSecondWord();
     	       
-            Room nextRoom = new NullRoom();
-            switch(direction) {
-            case "norte":
-            	nextRoom = currentRoom.getNorthExit();
-            	break;
-            case "este":
-            	nextRoom = currentRoom.getEastExit();
-            	break;
-            case "sur":
-            	nextRoom = currentRoom.getSouthExit();
-            	break;
-            case "oeste":
-            	nextRoom = currentRoom.getWestExit();
-            	break;
-            }
+            Room nextRoom = searchRoom(direction, currentRoom);
 
             if (nextRoom.isNull()) {
                 System.out.println("Ahi no hay una puerta!");
@@ -38,4 +26,25 @@ public class GameMovement {
     	}
 		return currentRoom;
 	}
+	
+	private Room searchRoom(String direction, Room currentRoom) {
+		Room roomFound = new NullRoom();
+    	switch(direction) {
+        case "norte":
+        	roomFound = currentRoom.getNorthExit();
+        	break;
+        case "este":
+        	roomFound = currentRoom.getEastExit();
+        	break;
+        case "sur":
+        	roomFound = currentRoom.getSouthExit();
+        	break;
+        case "oeste":
+        	roomFound = currentRoom.getWestExit();
+        	break;
+        }
+
+    	return roomFound;
+	}
+	
 }

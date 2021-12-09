@@ -1,3 +1,5 @@
+package game;
+
 import exceptions.IsNotCommandException;
 import exceptions.SecondParameterException;
 public class Game {
