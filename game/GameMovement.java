@@ -18,8 +18,7 @@ public class GameMovement {
             }
             else {
                 currentRoom = nextRoom;
-                System.out.println(currentRoom.getDescription());
-                System.out.print("Salidas: " + currentRoom.getStringExits() + "\n");
+                printCurrentRoomWithExits(currentRoom);
             }
     	}catch(SecondParameterException e) {
     		System.out.println(e.getMessage());
@@ -47,4 +46,8 @@ public class GameMovement {
     	return roomFound;
 	}
 	
+	private void printCurrentRoomWithExits(Room currentRoom) {
+    	System.out.println(currentRoom.getDescription());
+        System.out.print("Salidas: " + currentRoom.getStringExits() + "\n");
+    }
 }
