@@ -24,9 +24,8 @@ public class Game {
 	}
 	
 	public void play(){
-		printWelcome();
-		
 		if(currentRoom != null) {
+			printWelcome();
 			boolean finished = false;
 	        while (! finished) {
 	            Command command = parser.getCommand();
