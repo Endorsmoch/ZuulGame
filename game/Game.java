@@ -13,19 +13,25 @@ public class Game {
 	
 	private void initConfig() {
 		MapFileReader file = new MapFileReader();
-		file.readFile();
-		currentRoom =  RoomList.getInstance().getStartRoom();
+
+		if(file.readFile()) {
+			currentRoom =  RoomList.getInstance().getStartRoom();
+		}
 	}
 	
 	public void play(){
-		printWelcome();
-		
-        boolean finished = false;
-        while (! finished) {
-            Command command = parser.getCommand();
-            finished = processCommand(command);
-        }
-        System.out.println("Gracias por jugar.\nAdios.");
+		if(currentRoom != null) {
+			printWelcome();
+			boolean finished = false;
+	        while (! finished) {
+	            Command command = parser.getCommand();
+	            finished = processCommand(command);
+	        }
+	        System.out.println("Gracias por jugar.\nAdios.");
+		}else {
+			System.out.println("El archivo es incorrecto.\nAdios.");
+		}
+        
 	}
 	
     private void printWelcome(){
@@ -33,7 +39,7 @@ public class Game {
     	"El mundo de Zull es un nuevo juego de aventura.\n" +
         "Escribe 'ayuda' si necesitas ayuda.\n" +
         "\n" +
-        "Estás en " + currentRoom.getName() +"\n" + 
+        "EstÃ¡s en " + currentRoom.getName() +"\n" + 
         "Salidas: " + currentRoom.getStringExits()); 
     }
 
@@ -64,7 +70,7 @@ public class Game {
     }
     
     private void printHelp() {
-        System.out.println("Estás perdido. Estás solo. Deambulas\n" +
+        System.out.println("EstÃ¡s perdido. EstÃ¡s solo. Deambulas\n" +
         "alrededor de la universidad.\n" +
         "\n" +
         "Tus comandos son:\n" +
@@ -80,13 +86,12 @@ public class Game {
     private boolean quit(Command command) {
     	try {
     		 if(command.hasSecondWord()) {
-    			 throw new SecondParameterException("¿Salir a donde?");  
+    			 throw new SecondParameterException("Â¿Salir a donde?");  
     	     }
     		 return true;
     	}catch(SecondParameterException e) {
     		System.out.println(e.getMessage());
     		return false;
     	}
-       
     }
 }

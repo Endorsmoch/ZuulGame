@@ -19,19 +19,21 @@ public class MapFileReader {
 	
 	private RoomList list = RoomList.getInstance();
 
-	public void readFile() {
+	public boolean readFile() {
+
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			Document document = builder.parse(new File("HouseMap.xml"));
-			verifyTags(document);
-			document.getDocumentElement().normalize();
-			
-			NodeList rooms = document.getElementsByTagName("room");
-			constructRoomList(rooms);
-			setStartRoom(rooms);
-			constructExits(rooms);
-			
+	
+			if(verifyTags(document)) {
+				document.getDocumentElement().normalize();
+				NodeList rooms = document.getElementsByTagName("room");
+				constructRoomList(rooms);
+				setStartRoom(rooms);
+				constructExits(rooms);
+				return true;
+			}
 		}catch(ParserConfigurationException e){
 			e.printStackTrace();
 		}catch(SAXException e) {
@@ -39,6 +41,7 @@ public class MapFileReader {
 		}catch(IOException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 	
 	private void constructRoomList(NodeList rooms) {
@@ -86,7 +89,7 @@ public class MapFileReader {
 		return node.getNodeType() == Node.ELEMENT_NODE;
     }
 	
-	private void verifyTags(Document documentoXml){
+	private boolean verifyTags(Document documentoXml){
         try{
             NodeList tags = documentoXml.getElementsByTagName("*");
             for(int i=0;i<tags.getLength();i++){
@@ -97,8 +100,9 @@ public class MapFileReader {
             }
         }catch(TagNameException e){
             e.printStackTrace();
-            System.exit(1);
+            return false;
         }
+        return true;
     }
 	
 	private boolean isCorrectTag(String tagName) {
