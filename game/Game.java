@@ -31,9 +31,8 @@ public class Game {
         System.out.println("!Bienvenido al mundo de Zull!\n" +
     	"El mundo de Zull es un nuevo juego de aventura.\n" +
         "Escribe 'ayuda' si necesitas ayuda.\n" +
-        "\n" +
-        "Estás en " + currentRoom.getName() +"\n" + 
-        "Salidas: " + currentRoom.getStringExits()); 
+        "\n");
+        printCurrentRoomWithExits();
     }
 
     private boolean processCommand(Command command){
@@ -70,7 +69,7 @@ public class Game {
         "	ir, salir, ayuda");
     }
     
-    private void goRoom(Command command) 
+    private boolean goRoom(Command command) 
     {
     	try {
     		if(!command.hasSecondWord()) {
@@ -78,34 +77,45 @@ public class Game {
             }
     		String direction = command.getSecondWord();
     	       
-            Room nextRoom = new NullRoom();
-            switch(direction) {
-            case "norte":
-            	nextRoom = currentRoom.getNorthExit();
-            	break;
-            case "este":
-            	nextRoom = currentRoom.getEastExit();
-            	break;
-            case "sur":
-            	nextRoom = currentRoom.getSouthExit();
-            	break;
-            case "oeste":
-            	nextRoom = currentRoom.getWestExit();
-            	break;
-            }
+            Room nextRoom = searchRoom(direction);
 
             if (nextRoom.isNull()) {
                 System.out.println("Ahi no hay una puerta!");
             }
             else {
                 currentRoom = nextRoom;
-                System.out.println(currentRoom.getDescription());
-                System.out.print("Salidas: " + currentRoom.getStringExits() + "\n");
+                printCurrentRoomWithExits();
+                return true;
             }
     	}catch(SecondParameterException e) {
     		System.out.println(e.getMessage());
     	}
-
+    	return false;
+    }
+    
+    private Room searchRoom(String direction) {
+    	Room roomFound = new NullRoom();
+    	switch(direction) {
+        case "norte":
+        	roomFound = currentRoom.getNorthExit();
+        	break;
+        case "este":
+        	roomFound = currentRoom.getEastExit();
+        	break;
+        case "sur":
+        	roomFound = currentRoom.getSouthExit();
+        	break;
+        case "oeste":
+        	roomFound = currentRoom.getWestExit();
+        	break;
+        }
+    	
+    	return roomFound;
+    }
+    
+    private void printCurrentRoomWithExits() {
+    	System.out.println(currentRoom.getDescription());
+        System.out.print("Salidas: " + currentRoom.getStringExits() + "\n");
     }
     
     private boolean quit(Command command) {

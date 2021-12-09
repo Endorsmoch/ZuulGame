@@ -24,7 +24,7 @@ public class MapFileReader {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		try {
 			DocumentBuilder builder = factory.newDocumentBuilder();
-			Document document = builder.parse(new File("HouseMap.xml"));
+			Document document = builder.parse(new File("../HouseMap.xml"));
 			verifyTags(document);
 			document.getDocumentElement().normalize();
 			
