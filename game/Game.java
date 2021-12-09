@@ -16,6 +16,8 @@ public class Game {
 
 		if(file.readFile()) {
 			currentRoom =  RoomList.getInstance().getStartRoom();
+		}else{
+			
 		}
 	}
 	
