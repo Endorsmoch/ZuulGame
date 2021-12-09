@@ -1,5 +1,6 @@
-import java.util.Scanner;
+package game;
 
+import java.util.Scanner;
 
 public class Parser {
 	private CommandWords commands;
