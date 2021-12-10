@@ -1,6 +1,7 @@
 package game;
 
 import exceptions.SecondParameterException;
+import exceptions.ExitDontExistException;
 import exceptions.IsNotDirectionException;
 
 public class GameMovement {
@@ -14,11 +15,8 @@ public class GameMovement {
     	       
             Room nextRoom = searchRoom(direction, currentRoom);
 
-            if (nextRoom.isNull()) {
-                System.out.println("Ahi no hay una puerta!");
-            }
-            else {
-                currentRoom = nextRoom;
+            if (!nextRoom.isNull()) {
+            	currentRoom = nextRoom;
                 printCurrentRoomWithExits(currentRoom);
             }
     	}catch(SecondParameterException e) {
@@ -46,7 +44,12 @@ public class GameMovement {
 	        default:
 	        	throw new IsNotDirectionException("No es una dirección válida");
 	        }
+	    	if(roomFound.isNull()) {
+	    		throw new ExitDontExistException("Ahi no hay una puerta!");
+	    	}
 		}catch(IsNotDirectionException e) {
+			System.out.println(e.getMessage());
+		}catch(ExitDontExistException e) {
 			System.out.println(e.getMessage());
 		}
 		return roomFound;
