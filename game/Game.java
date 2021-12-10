@@ -47,7 +47,7 @@ public class Game {
     	"El mundo de Zull es un nuevo juego de aventura.\n" +
         "Escribe 'ayuda' si necesitas ayuda.\n" +
         "\n" +
-        "Estás en " + currentRoom.getName() +"\n" + 
+        "Est�s en " + currentRoom.getName() +"\n" + 
         "Salidas: " + currentRoom.getStringExits()); 
     }
 
@@ -78,7 +78,7 @@ public class Game {
     }
     
     private void printHelp() {
-        System.out.println("Estás perdido. Estás solo. Deambulas\n" +
+        System.out.println("Est�s perdido. Estás solo. Deambulas\n" +
         "alrededor de la universidad.\n" +
         "\n" +
         "Tus comandos son:\n" +
@@ -94,7 +94,7 @@ public class Game {
     private boolean quit(Command command) {
     	try {
     		 if(command.hasSecondWord()) {
-    			 throw new SecondParameterException("¿Salir a donde?");  
+    			 throw new SecondParameterException("�Salir a donde?");  
     	     }
     		 return true;
     	}catch(SecondParameterException e) {
