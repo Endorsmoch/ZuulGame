@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<house>
+	<room name="Entrance" start="true">
+		<north>Drawing Room</north>
+		<east>Nothing</east>
+		<south>Nothing</south>
+		<west>Nothing</west>
+	</room>	
+	<room name="Drawing Room">
+		<north>Living Room</north>
+		<east>Dining Room</east>
+		<south>Entrance</south>
+		<west>Closet</west>
+	</room>	
+	<room name="Dining Room">
+		<north>Kitchen</north>
+		<east>Nothing</east	>
+		<south>Nothing</south>
+		<west>Drawing Room</west>
+	</room>	
+	<room name="Closet">
+		<north>Nothing</north>
+		<east>Drawing Room</east>
+		<south>Nothing</south>
+		<west>Nothing</west>
+	</room>	
+	<room name="Kitchen">
+		<north>Backyard</north>
+		<east>Nothing</east>
+		<south>Dining Room</south>
+		<west>Living Room</west>
+	</room>
+	<room name="Living Room">
+		<north>Room's Hall</north>
+		<east>Kitchen</east>
+		<south>Drawing Room</south>
+		<west>Main Bedroom</west>
+	</room>
+	<room name="Main Bedroom">
+		<north>Main Bathroom</north>
+		<east>Living Room</east>
+		<south>Nothing</south>
+		<west>Nothing</west>
+	</room>
+	<room name="Main Bathroom">
+		<north>Nothing</north>
+		<east>Nothing</east>
+		<south>Main Bedroom</south>
+		<west>Nothing</west>
+	</room>	
+	<room name="Room's Hall">
+		<north>Kid's Bathroom</north>
+		<east>Nothing</east>
+		<south>Living Room</south>
+		<west>Kid's Bedroom</west>
+	</room>	
+	<room name="Kid's Bedroom">
+		<north>Nothing</north>
+		<east>Room's Hall</east>
+		<south>Nothing</south>
+		<west>Nothing</west>
+	</room>		
+	<room name="Kid's Bathroom">
+		<north>Nothing</north>
+		<east>Nothing</east>
+		<south>Room's Hall</south>
+		<west>Nothing</west>
+	</room>	
+	<room name="Backyard">
+		<north>Nothing</north>
+		<east>Nothing</east>
+		<south>Kitchen</south>
+		<west>Nothing</west>
+	</room>		
+</house>
