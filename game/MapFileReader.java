@@ -18,6 +18,7 @@ import exceptions.TagNameException;
 public class MapFileReader {
 	
 	private RoomList list = RoomList.getInstance();
+	private String exceptionDescription = null;
 
 	public boolean readFile() {
 
@@ -34,12 +35,9 @@ public class MapFileReader {
 				constructExits(rooms);
 				return true;
 			}
-		}catch(ParserConfigurationException e){
+		}catch(ParserConfigurationException | SAXException | IOException e){
 			e.printStackTrace();
-		}catch(SAXException e) {
-			e.printStackTrace();
-		}catch(IOException e) {
-			e.printStackTrace();
+			setExceptionDescription(e.getMessage());
 		}
 		return false;
 	}
@@ -108,5 +106,13 @@ public class MapFileReader {
 	private boolean isCorrectTag(String tagName) {
 		return (tagName.equals("house") || tagName.equals("room") || tagName.equals("north") ||
 				tagName.equals("east") || tagName.equals("south") || tagName.equals("west"));
+	}
+
+	public String getExceptionDescription() {
+		return exceptionDescription;
+	}
+
+	public void setExceptionDescription(String exceptionDescription) {
+		this.exceptionDescription = exceptionDescription;
 	}
 }

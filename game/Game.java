@@ -1,5 +1,11 @@
 package game;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import exceptions.IsNotCommandException;
 import exceptions.SecondParameterException;
 public class Game {
@@ -17,7 +23,7 @@ public class Game {
 		if(file.readFile()) {
 			currentRoom =  RoomList.getInstance().getStartRoom();
 		}else{
-			
+			System.out.print(file.getExceptionDescription());
 		}
 	}
 	
