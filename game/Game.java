@@ -1,5 +1,11 @@
 package game;
 
+import java.io.IOException;
+
+import javax.xml.parsers.ParserConfigurationException;
+
+import org.xml.sax.SAXException;
+
 import exceptions.IsNotCommandException;
 import exceptions.SecondParameterException;
 public class Game {
@@ -17,7 +23,7 @@ public class Game {
 		if(file.readFile()) {
 			currentRoom =  RoomList.getInstance().getStartRoom();
 		}else{
-			
+			System.out.print(file.getExceptionDescription());
 		}
 	}
 	
@@ -41,7 +47,7 @@ public class Game {
     	"El mundo de Zull es un nuevo juego de aventura.\n" +
         "Escribe 'ayuda' si necesitas ayuda.\n" +
         "\n" +
-        "Estás en " + currentRoom.getName() +"\n" + 
+        "Est�s en " + currentRoom.getName() +"\n" + 
         "Salidas: " + currentRoom.getStringExits()); 
     }
 
@@ -72,7 +78,7 @@ public class Game {
     }
     
     private void printHelp() {
-        System.out.println("Estás perdido. Estás solo. Deambulas\n" +
+        System.out.println("Est�s perdido. Estás solo. Deambulas\n" +
         "alrededor de la universidad.\n" +
         "\n" +
         "Tus comandos son:\n" +
@@ -88,7 +94,7 @@ public class Game {
     private boolean quit(Command command) {
     	try {
     		 if(command.hasSecondWord()) {
-    			 throw new SecondParameterException("¿Salir a donde?");  
+    			 throw new SecondParameterException("�Salir a donde?");  
     	     }
     		 return true;
     	}catch(SecondParameterException e) {
